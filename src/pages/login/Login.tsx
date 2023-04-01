@@ -50,7 +50,7 @@ const Login = () => {
               <Input
                 id="email"
                 name="email"
-                placeholder="john@acme.com"
+                placeholder="john@doe.com"
                 type="email"
               />
             </div>

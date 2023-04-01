@@ -16,7 +16,10 @@ const ForgotPassword = () => {
     <Layout title="Log in">
       <div className="rounded-lg rounded-t-lg rounded-br-xl bg-white p-8 pb-10 sm:p-10 sm:pb-12 w-10/12 max-w-lg">
         <div className="mb-4">
-          <Header text="Forgot your password?" style="text-black text-center mb-2" />
+          <Header
+            text="Forgot your password?"
+            style="text-black text-center mb-2"
+          />
 
           <SubHeader
             text="Enter your email to reset your password."
@@ -48,7 +51,7 @@ const ForgotPassword = () => {
               <Input
                 id="email"
                 name="email"
-                placeholder="john@acme.com"
+                placeholder="john@doe.com"
                 type="email"
               />
             </div>

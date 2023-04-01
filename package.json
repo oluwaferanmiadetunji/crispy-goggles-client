@@ -11,7 +11,9 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "antd": "^5.3.3",
+    "formik": "^2.2.9",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

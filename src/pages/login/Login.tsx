@@ -62,13 +62,13 @@ const Login = () => {
             </div>
 
             <div className="pt-2">
-              <PrimaryButton text="Submit" />
+              <PrimaryButton text="Log in" />
             </div>
 
             <div className="mt-4 pt-3">
               <Link to={ROUTES.SIGNUP}>
                 <Paragraph
-                  text="Don't have an account? Sign up here"
+                  text="Don't have an account? Sign up"
                   style="text-center font-bold mb-2 hover:text-[#2e436f]"
                 />
               </Link>

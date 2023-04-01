@@ -9,18 +9,17 @@ import { ROUTES } from 'utils/constants'
 
 interface Values {
   email: string
-  password: string
 }
 
-const Signup = () => {
+const ForgotPassword = () => {
   return (
-    <Layout title="Create Account">
+    <Layout title="Log in">
       <div className="rounded-lg rounded-t-lg rounded-br-xl bg-white p-8 pb-10 sm:p-10 sm:pb-12 w-10/12 max-w-lg">
         <div className="mb-4">
-          <Header text="Create Account" style="text-black text-center mb-2" />
+          <Header text="Forgot your password?" style="text-black text-center mb-2" />
 
           <SubHeader
-            text="Join us! Please, enter your details."
+            text="Enter your email to reset your password."
             style="text-gray-700 text-center mb-5"
           />
         </div>
@@ -28,7 +27,6 @@ const Signup = () => {
         <Formik
           initialValues={{
             email: '',
-            password: '',
           }}
           onSubmit={(
             values: Values,
@@ -55,20 +53,14 @@ const Signup = () => {
               />
             </div>
 
-            <div className="mb-6">
-              <FormLabel text="Password" style="text-black text-center mb-2" />
-
-              <Input id="password" name="password" type="password" />
-            </div>
-
             <div className="pt-2">
-              <PrimaryButton text="Create Account" />
+              <PrimaryButton text="Reset Password" />
             </div>
 
             <div className="mt-4 pt-3">
               <Link to={ROUTES.LOGIN}>
                 <Paragraph
-                  text="Already have an account? Login"
+                  text="Back to login"
                   style="text-center font-bold mb-2 hover:text-[#2e436f]"
                 />
               </Link>
@@ -80,4 +72,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default ForgotPassword

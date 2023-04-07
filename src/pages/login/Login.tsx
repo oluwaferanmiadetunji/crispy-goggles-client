@@ -1,11 +1,15 @@
-import Layout from 'components/authLayout'
-import { Header, SubHeader, FormLabel, Paragraph } from 'components/theme/Text'
-import { Input } from 'components/theme/Input'
-import { PrimaryButton } from 'components/theme/Buttons'
-import { Formik, Form, FormikHelpers } from 'formik'
-import { message } from 'antd'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'utils/constants'
+import {useState} from "react"
+import Layout from "components/authLayout"
+import {Header, SubHeader, FormLabel, Paragraph} from "components/theme/Text"
+import {Input} from "components/theme/Input"
+import {PrimaryButton} from "components/theme/Buttons"
+import {Formik, Form, FormikHelpers} from "formik"
+import {message} from "antd"
+import {Link} from "react-router-dom"
+import {ROUTES} from "utils/constants"
+import {makePostReq} from "utils/api"
+import {useNavigate} from "react-router-dom"
+import {saveItem} from "utils/storage"
 
 interface Values {
   email: string
@@ -13,6 +17,9 @@ interface Values {
 }
 
 const Login = () => {
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
   return (
     <Layout title="Log in">
       <div className="rounded-lg rounded-t-lg rounded-br-xl bg-white p-8 pb-10 sm:p-10 sm:pb-12 w-10/12 max-w-lg">
@@ -27,32 +34,34 @@ const Login = () => {
 
         <Formik
           initialValues={{
-            email: '',
-            password: '',
+            email: "",
+            password: "",
           }}
-          onSubmit={(
-            values: Values,
-            { setSubmitting }: FormikHelpers<Values>,
-          ) => {
-            setTimeout(() => {
-              message.success(JSON.stringify(values, null, 2))
-              setSubmitting(false)
-            }, 500)
+          onSubmit={async (values: Values, {setSubmitting}: FormikHelpers<Values>) => {
+            setLoading(true)
+            const {data, error} = await makePostReq({
+              payload: values,
+              url: "/auth/signin",
+            })
+            setSubmitting(false)
+            setLoading(false)
+
+            if (error) {
+              message.error(data.message)
+            } else {
+              message.success(data.message)
+              saveItem("auth", data.data)
+              setTimeout(() => {
+                navigate(ROUTES.HOME)
+              }, 1000)
+            }
           }}
         >
           <Form>
             <div className="mb-6">
-              <FormLabel
-                text="Email Address"
-                style="text-black text-center mb-2"
-              />
+              <FormLabel text="Email Address" style="text-black text-center mb-2" />
 
-              <Input
-                id="email"
-                name="email"
-                placeholder="john@doe.com"
-                type="email"
-              />
+              <Input id="email" name="email" placeholder="john@doe.com" type="email" />
             </div>
 
             <div className="mb-6">
@@ -62,7 +71,7 @@ const Login = () => {
             </div>
 
             <div className="pt-2">
-              <PrimaryButton text="Log in" />
+              <PrimaryButton text="Log in" loading={loading} />
             </div>
 
             <div className="mt-4 pt-3">

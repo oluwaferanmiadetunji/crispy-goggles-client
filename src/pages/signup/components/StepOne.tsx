@@ -1,9 +1,13 @@
-import { FormLabel, Paragraph } from 'components/theme/Text'
-import { Input } from 'components/theme/Input'
-import { PrimaryButton } from 'components/theme/Buttons'
-import { Formik, Form, FormikHelpers } from 'formik'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'utils/constants'
+import {useState} from "react"
+import {FormLabel, Paragraph} from "components/theme/Text"
+import {Input} from "components/theme/Input"
+import {PrimaryButton} from "components/theme/Buttons"
+import {Formik, Form, FormikHelpers} from "formik"
+import {Link} from "react-router-dom"
+import {ROUTES} from "utils/constants"
+import {makePostReq} from "utils/api"
+import {saveItem} from "utils/storage"
+import {message} from "antd"
 
 interface Values {
   name: string
@@ -11,16 +15,38 @@ interface Values {
   email: string
 }
 
-const StepOne = ({ next }: { next: () => void }) => {
+const StepOne = ({next}: {next: () => void}) => {
+  const [loading, setLoading] = useState(false)
+
   return (
     <Formik
       initialValues={{
-        name: '',
-        password: '',
-        email: '',
+        name: "",
+        password: "",
+        email: "",
       }}
-      onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-        next()
+      onSubmit={async (values: Values, {setSubmitting}: FormikHelpers<Values>) => {
+        setLoading(true)
+        const {data, error} = await makePostReq({
+          payload: values,
+          url: "/users/register",
+        })
+        setSubmitting(false)
+        setLoading(false)
+
+        if (error) {
+          message.error(data.message)
+        } else {
+          message.success(data.message)
+          const id = data.data
+
+          saveItem("signup", {
+            ...values,
+            id,
+          })
+
+          next()
+        }
       }}
     >
       <Form>
@@ -33,12 +59,7 @@ const StepOne = ({ next }: { next: () => void }) => {
         <div className="mb-6">
           <FormLabel text="Email Address" style="text-black text-center mb-2" />
 
-          <Input
-            id="email"
-            name="email"
-            placeholder="john@doe.com"
-            type="email"
-          />
+          <Input id="email" name="email" placeholder="john@doe.com" type="email" />
         </div>
 
         <div className="mb-6">
@@ -48,7 +69,7 @@ const StepOne = ({ next }: { next: () => void }) => {
         </div>
 
         <div className="pt-2">
-          <PrimaryButton text="Submit" />
+          <PrimaryButton text="Submit" loading={loading} />
         </div>
 
         <div className="mt-4 pt-3">

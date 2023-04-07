@@ -9,7 +9,7 @@ import {Link} from "react-router-dom"
 import {ROUTES} from "utils/constants"
 import {makePostReq} from "utils/api"
 import {useNavigate} from "react-router-dom"
-import {saveItem} from "utils/storage"
+import {saveItem, getItem} from "utils/storage"
 
 interface Values {
   email: string
@@ -49,10 +49,11 @@ const Login = () => {
             if (error) {
               message.error(data.message)
             } else {
+              const redirect = getItem("path") || ROUTES.HOME
               message.success(data.message)
               saveItem("auth", data.data)
               setTimeout(() => {
-                navigate(ROUTES.HOME)
+                navigate(redirect)
               }, 1000)
             }
           }}

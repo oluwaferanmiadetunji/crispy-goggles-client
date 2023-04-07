@@ -35,3 +35,25 @@ body {
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-size: 15%, 15%, 15%, 15%;
 }
+
+.nav-link {
+  color: #d3d3d3;
+}
+
+.nav-link:hover {
+  color: lightgreen;
+}
+
+.nav-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+.active-nav-link {
+  color: lightgreen;
+}
+
+.active-nav-link svg {
+  width: 22px;
+  height: 22px;
+}

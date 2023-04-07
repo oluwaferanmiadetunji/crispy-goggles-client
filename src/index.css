@@ -8,7 +8,7 @@
   font-weight: 400;
 
   color: rgba(255, 255, 255, 0.87);
-  background-color: #060a15;
+  background-color: #161c24;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,23 +37,94 @@ body {
 }
 
 .nav-link {
-  color: #d3d3d3;
+  color: rgb(145, 158, 171);
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  line-height: 1.5;
+  font-size: 1rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  direction: inherit;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px 0px 4px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  min-width: 0px;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 8px 12px 8px 16px;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  position: relative;
+  text-transform: capitalize;
+  color: rgb(145, 158, 171);
+  border-radius: 8px;
+  height: 48px;
+  margin-bottom: 10px;
 }
 
 .nav-link:hover {
-  color: lightgreen;
+  vertical-align: middle;
+  background-color: rgba(145, 158, 171, 0.08);
 }
 
 .nav-link svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .active-nav-link {
-  color: lightgreen;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  line-height: 1.5;
+  font-size: 1rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  direction: inherit;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px 0px 4px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  min-width: 0px;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 8px 12px 8px 16px;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  position: relative;
+  text-transform: capitalize;
+  color: rgb(91, 229, 132);
+  border-radius: 8px;
+  height: 48px;
+  background-color: rgba(0, 171, 85, 0.16);
+  margin-bottom: 10px;
 }
 
 .active-nav-link svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+}
+
+aside {
+  border-right: 1px dashed rgba(145, 158, 171, 0.24);
 }

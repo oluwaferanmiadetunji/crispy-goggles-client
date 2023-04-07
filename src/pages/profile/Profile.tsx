@@ -1,9 +1,12 @@
 import Layout from "components/layout"
+// import HeaderImg from "assets/svg/header.svg"
 
 const Profile = () => {
   return (
     <Layout title="Profile">
-      <div>Profile</div>
+      <div>
+        {/* <img src={HeaderImg} /> */}
+      </div>
     </Layout>
   )
 }

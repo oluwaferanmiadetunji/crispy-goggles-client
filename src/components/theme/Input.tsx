@@ -1,23 +1,25 @@
-import { Field } from 'formik'
+import {Field} from "formik"
 
 type InputProps = {
   required?: boolean
   type?: string
   style?: string
   name?: string
-  value?: string | number
   id?: string
   placeholder?: string
+  as?: string
+  rows?: number
 }
 
 export const Input = ({
   required = true,
-  value,
   name,
   style,
-  type = 'text',
+  type = "text",
   id,
   placeholder,
+  as = "input",
+  rows,
 }: InputProps) => {
   return (
     <Field
@@ -25,9 +27,10 @@ export const Input = ({
       name={name}
       required={required}
       type={type}
-      value={value}
       id={id}
       placeholder={placeholder}
+      as={as}
+      rows={rows}
     />
   )
 }

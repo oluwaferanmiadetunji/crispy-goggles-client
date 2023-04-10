@@ -76,7 +76,7 @@ const StepOne = ({next}: {next: () => void}) => {
           <Link to={ROUTES.LOGIN}>
             <Paragraph
               text="Already have an account? Login"
-              style="text-center font-bold mb-2 hover:text-[#2e436f]"
+              style="text-center font-bold mb-2 hover:text-[#2e436f] text-[#060a15]"
             />
           </Link>
         </div>

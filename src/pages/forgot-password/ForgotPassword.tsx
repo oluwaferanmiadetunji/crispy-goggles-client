@@ -64,7 +64,7 @@ const ForgotPassword = () => {
               <Link to={ROUTES.LOGIN}>
                 <Paragraph
                   text="Back to login"
-                  style="text-center font-bold mb-2 hover:text-[#2e436f]"
+                  style="text-center font-bold text-[#060a15] mb-2 hover:text-[#2e436f]"
                 />
               </Link>
             </div>

@@ -79,14 +79,14 @@ const Login = () => {
               <Link to={ROUTES.SIGNUP}>
                 <Paragraph
                   text="Don't have an account? Sign up"
-                  style="text-center font-bold mb-2 hover:text-[#2e436f]"
+                  style="text-center font-bold mb-2 hover:text-[#2e436f] text-[#060a15]"
                 />
               </Link>
 
               <Link to={ROUTES.FORGOT_PASSWORD}>
                 <Paragraph
                   text="Forgot Password?"
-                  style="text-center font-bold hover:text-[#2e436f]"
+                  style="text-center font-bold hover:text-[#2e436f] text-[#060a15]"
                 />
               </Link>
             </div>

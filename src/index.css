@@ -128,3 +128,24 @@ body {
 aside {
   border-right: 1px dashed rgba(145, 158, 171, 0.24);
 }
+
+.ant-btn span {
+  text-align: center;
+  margin: auto;
+}
+
+.profile-short {
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  box-sizing: inherit;
+  line-height: 1.57143;
+  font-family: "Public Sans", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0px 0px 0px 4px;
+}
+
+textarea {
+  resize: none;
+}

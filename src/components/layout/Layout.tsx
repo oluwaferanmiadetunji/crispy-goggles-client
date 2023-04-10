@@ -79,7 +79,7 @@ const Layout = ({children}: LayoutProps) => {
   ]
 
   return (
-    <div className="h-screen w-screen flex">
+    <div className="h-screen w-screen flex overflow-hidden">
       <aside className="h-screen bg-[#161c24] p-5 w-80">
         <div className="mt-4 ml-5">
           <Logo />
@@ -87,7 +87,7 @@ const Layout = ({children}: LayoutProps) => {
 
         <div className="mt-10">
           {Links.map(({icon, text, url}) => (
-            <LinkItem icon={icon} text={text} url={url} />
+            <LinkItem icon={icon} text={text} url={url} key={url} />
           ))}
 
           <div className="mb-5 nav-link cursor-pointer flex items-center">
@@ -98,7 +98,7 @@ const Layout = ({children}: LayoutProps) => {
         </div>
       </aside>
 
-      <main className="w-full h-screen">{children}</main>
+      <main className="w-full h-screen overflow-x-hidden overflow-y-auto">{children}</main>
     </div>
   )
 }

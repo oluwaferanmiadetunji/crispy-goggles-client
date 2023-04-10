@@ -39,17 +39,19 @@ const EditProfile = () => {
   const [image, setImage] = useState(user?.img)
   const [headerImage, setHeaderImage] = useState(user?.header_img)
   const [dateOfBirth, setDateOfBirth] = useState(user?.dateofbirth)
+  const [links, setLinks] = useState(user?.links)
+
+  const handleUpdateLinks = (links: string[]) => {
+    setLinks(links)
+  }
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     setDateOfBirth(new Date(dateString).toISOString())
   }
 
   const disabledDate = (current: any) => {
-    // Calculate the date 18 years ago from today
     const minDate = new Date()
     minDate.setFullYear(minDate.getFullYear() - 18)
-
-    // Disable dates that are less than 18 years ago
     return current && current.valueOf() > minDate.valueOf()
   }
 
@@ -185,7 +187,7 @@ const EditProfile = () => {
                   <div className="mb-3">
                     <FormLabel text="Links" style="text-white text-center mb-2" />
 
-                    <EditProfileLinks />
+                    <EditProfileLinks links={links} setLinks={handleUpdateLinks} />
                   </div>
                 </div>
               </div>

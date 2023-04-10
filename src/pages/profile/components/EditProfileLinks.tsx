@@ -1,11 +1,97 @@
 import React, {useEffect, useRef, useState} from "react"
-import {PlusOutlined} from "@ant-design/icons"
+import {
+  PlusOutlined,
+  TwitterOutlined,
+  InstagramFilled,
+  LinkedinFilled,
+  FacebookFilled,
+  LinkOutlined,
+} from "@ant-design/icons"
 import type {InputRef} from "antd"
-import {Space, Input, Tag, Tooltip, theme} from "antd"
+import {Space, Input, Tag, Tooltip} from "antd"
 
-const EditProfileLinks: React.FC = () => {
-  const {token} = theme.useToken()
-  const [tags, setTags] = useState(["Unremovable", "Tag 2", "Tag 3"])
+type Props = {
+  links: string[]
+  setLinks: (links: string[]) => void
+}
+
+const renderTag = ({
+  closable,
+  link,
+  onClose,
+  onDoubleClick,
+}: {
+  link: string
+  closable: boolean
+  onClose: () => void
+  onDoubleClick: (e: any) => void
+}) => {
+  const isLongTag = link.length > 20
+
+  if (link.includes("facebook")) {
+    return (
+      <Tag
+        icon={<FacebookFilled />}
+        closable={closable}
+        onClose={onClose}
+        color="#3b5999"
+      >
+        <span onDoubleClick={onDoubleClick}>
+          {isLongTag ? `${link.slice(0, 20)}...` : link}
+        </span>
+      </Tag>
+    )
+  } else if (link.includes("instagram")) {
+    return (
+      <Tag
+        icon={<InstagramFilled />}
+        closable={closable}
+        onClose={onClose}
+        color="#3b5999"
+      >
+        <span onDoubleClick={onDoubleClick}>
+          {isLongTag ? `${link.slice(0, 20)}...` : link}
+        </span>
+      </Tag>
+    )
+  } else if (link.includes("linkedin")) {
+    return (
+      <Tag
+        icon={<LinkedinFilled />}
+        closable={closable}
+        onClose={onClose}
+        color="#3b5999"
+      >
+        <span onDoubleClick={onDoubleClick}>
+          {isLongTag ? `${link.slice(0, 20)}...` : link}
+        </span>
+      </Tag>
+    )
+  } else if (link.includes("twitter")) {
+    return (
+      <Tag
+        icon={<TwitterOutlined />}
+        closable={closable}
+        onClose={onClose}
+        color="#3b5999"
+      >
+        <span onDoubleClick={onDoubleClick}>
+          {isLongTag ? `${link.slice(0, 20)}...` : link}
+        </span>
+      </Tag>
+    )
+  } else {
+    return (
+      <Tag icon={<LinkOutlined />} closable={closable} onClose={onClose} color="#3b5999">
+        <span onDoubleClick={onDoubleClick}>
+          {isLongTag ? `${link.slice(0, 20)}...` : link}
+        </span>
+      </Tag>
+    )
+  }
+}
+
+const EditProfileLinks = ({links, setLinks}: Props) => {
   const [inputVisible, setInputVisible] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [editInputIndex, setEditInputIndex] = useState(-1)
@@ -23,10 +109,9 @@ const EditProfileLinks: React.FC = () => {
     editInputRef.current?.focus()
   }, [inputValue])
 
-  const handleClose = (removedTag: string) => {
-    const newTags = tags.filter((tag) => tag !== removedTag)
-    console.log(newTags)
-    setTags(newTags)
+  const handleClose = (removedLink: string) => {
+    const newLinks = links.filter((link) => link !== removedLink)
+    setLinks(newLinks)
   }
 
   const showInput = () => {
@@ -38,8 +123,8 @@ const EditProfileLinks: React.FC = () => {
   }
 
   const handleInputConfirm = () => {
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      setTags([...tags, inputValue])
+    if (inputValue && links.indexOf(inputValue) === -1) {
+      setLinks([...links, inputValue])
     }
     setInputVisible(false)
     setInputValue("")
@@ -50,9 +135,9 @@ const EditProfileLinks: React.FC = () => {
   }
 
   const handleEditInputConfirm = () => {
-    const newTags = [...tags]
-    newTags[editInputIndex] = editInputValue
-    setTags(newTags)
+    const newLinks = [...links]
+    newLinks[editInputIndex] = editInputValue
+    setLinks(newLinks)
     setEditInputIndex(-1)
     setInputValue("")
   }
@@ -63,19 +148,19 @@ const EditProfileLinks: React.FC = () => {
   }
 
   const tagPlusStyle: React.CSSProperties = {
-    background: token.colorBgContainer,
+    background: "white",
     borderStyle: "dashed",
   }
 
   return (
     <Space size={[0, 8]} wrap>
       <Space size={[0, 8]} wrap>
-        {tags.map((tag, index) => {
+        {links.map((link, index) => {
           if (editInputIndex === index) {
             return (
               <Input
                 ref={editInputRef}
-                key={tag}
+                key={link}
                 size="small"
                 style={tagInputStyle}
                 value={editInputValue}
@@ -85,29 +170,24 @@ const EditProfileLinks: React.FC = () => {
               />
             )
           }
-          const isLongTag = tag.length > 20
-          const tagElem = (
-            <Tag
-              key={tag}
-              closable={index !== 0}
-              style={{userSelect: "none"}}
-              onClose={() => handleClose(tag)}
-            >
-              <span
-                onDoubleClick={(e) => {
-                  if (index !== 0) {
-                    setEditInputIndex(index)
-                    setEditInputValue(tag)
-                    e.preventDefault()
-                  }
-                }}
-              >
-                {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-              </span>
-            </Tag>
-          )
+
+          const isLongTag = link.length > 20
+
+          const tagElem = renderTag({
+            closable: index !== 0,
+            link,
+            onClose: () => handleClose(link),
+            onDoubleClick: (e) => {
+              // if (index !== 0) {
+              setEditInputIndex(index)
+              setEditInputValue(link)
+              e.preventDefault()
+              // }
+            },
+          })
+
           return isLongTag ? (
-            <Tooltip title={tag} key={tag}>
+            <Tooltip title={link} key={link}>
               {tagElem}
             </Tooltip>
           ) : (
@@ -115,6 +195,7 @@ const EditProfileLinks: React.FC = () => {
           )
         })}
       </Space>
+
       {inputVisible ? (
         <Input
           ref={inputRef}

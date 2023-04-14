@@ -9,7 +9,11 @@ import {Link} from "react-router-dom"
 import {ROUTES} from "utils/constants"
 import {makePostReq} from "utils/api"
 import {useNavigate} from "react-router-dom"
-import {saveItem, getItem} from "utils/storage"
+import {getItem} from "utils/storage"
+import {useAppDispatch} from "components/hooks/redux"
+import {setDetails, setLoginStatus} from "components/redux/user"
+import {setAuthorizationHeader} from "utils/helpers"
+import {loginUser} from "components/api/auth"
 
 interface Values {
   email: string
@@ -19,6 +23,8 @@ interface Values {
 const Login = () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
+  const dispatch = useAppDispatch()
 
   return (
     <Layout title="Log in">
@@ -49,12 +55,14 @@ const Login = () => {
             if (error) {
               message.error(data.message)
             } else {
-              const redirect = getItem("path") || ROUTES.HOME
-              message.success(data.message)
-              saveItem("auth", data.data)
-              setTimeout(() => {
-                navigate(redirect)
-              }, 1000)
+              const {Token, User} = data.data
+              dispatch(
+                loginUser({
+                  navigate,
+                  Token,
+                  User,
+                })
+              )
             }
           }}
         >

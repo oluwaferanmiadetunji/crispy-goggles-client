@@ -12,6 +12,9 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons"
 import Logo from "components/logo"
+import {logoutUser} from "utils/helpers"
+import {useAppDispatch, useAppSelector} from "components/hooks/redux"
+import {selectUserState} from "components/redux/user"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -26,6 +29,9 @@ type LinkItemProps = {
 
 const Layout = ({children}: LayoutProps) => {
   const location = useLocation()
+  const dispatch = useAppDispatch()
+
+  const user = useAppSelector(selectUserState)
 
   useEffect(() => {
     saveItem("page", location.pathname)
@@ -90,7 +96,10 @@ const Layout = ({children}: LayoutProps) => {
             <LinkItem icon={icon} text={text} url={url} key={url} />
           ))}
 
-          <div className="mb-5 nav-link cursor-pointer flex items-center">
+          <div
+            className="mb-5 nav-link cursor-pointer flex items-center"
+            onClick={() => dispatch(logoutUser())}
+          >
             <LogoutOutlined />
 
             <p className="ml-3">Logout</p>
@@ -98,7 +107,9 @@ const Layout = ({children}: LayoutProps) => {
         </div>
       </aside>
 
-      <main className="w-full h-screen overflow-x-hidden overflow-y-auto">{children}</main>
+      <main className="w-full h-screen overflow-x-hidden overflow-y-auto">
+        {children}
+      </main>
     </div>
   )
 }

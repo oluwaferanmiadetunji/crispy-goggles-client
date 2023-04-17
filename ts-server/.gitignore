@@ -1,0 +1,9 @@
+/node_modules
+.DS_Store
+/dist
+src/logs
+.env
+.env.test
+redis-volume
+storage
+/coverage

@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  squawk-server:
+    build: .
+    ports:
+      - "8080:8080"
+ 
+    env_file:
+      - ./.env
+    networks:
+      - service-network
+
+ 
+
+networks:
+  service-network:
+    driver: "bridge"
+
+

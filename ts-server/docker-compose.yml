@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  app:
+    container_name: app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+      - 9100:9100
+    environment:
+      - NODE_ENV=production
+      - PORT=8000 
+    build:
+        context: ./ 
+    network_mode: bridge 
+    volumes:
+      - ./:/usr/src/app/
+      - /usr/src/app/node_modules
+      - ./src/logs:/usr/src/app/src/logs
+    links:
+      - redis
+    depends_on:
+      - redis
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 6379:6379
+    expose:
+      - 6379  
+    volumes:
+      - ./redis-volume:/data
+  

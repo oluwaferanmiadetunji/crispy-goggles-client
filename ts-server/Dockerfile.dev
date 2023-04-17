@@ -1,0 +1,17 @@
+FROM node:19-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+EXPOSE 8081
+
+EXPOSE 9100
+
+ENV NODE_ENV=development
+
+RUN npm install -g nodemon && npm install
+
+COPY . /
+
+CMD ["nodemon", "src/index.ts"]
